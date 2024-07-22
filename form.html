@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BalancerJsonCreator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Generate JSON from Form</h1>
+    <nav>
+        <a href="index.html">Upload Excel</a>
+    </nav>
+    <div id="form-container">
+        <form id="json-form">
+            <h2>Required Fields</h2>
+            <label for="app-name">Application Name:</label>
+            <input type="text" id="app-name" name="app-name" required><br>
+
+            <label for="domain">Domain:</label>
+            <input type="text" id="domain" name="domain" required><br>
+
+            <label for="dns-record">DNS Record:</label>
+            <input type="text" id="dns-record" name="dns-record" required><br>
+
+            <label for="target-ids">Target IDs (comma separated):</label>
+            <input type="text" id="target-ids" name="target-ids" required><br>
+
+            <label for="target-ports">Target Ports (comma separated):</label>
+            <input type="text" id="target-ports" name="target-ports" required><br>
+
+            <button type="button" onclick="toggleOptionalFields()">Show Optional Fields</button>
+
+            <div id="optional-fields" style="display: none;">
+                <h2>Optional Fields</h2>
+                <label for="protocol">Protocol:</label>
+                <input type="text" id="protocol" name="protocol" placeholder="HTTPS"><br>
+
+                <label for="target-group-name">Target Group Name:</label>
+                <input type="text" id="target-group-name" name="target-group-name" placeholder="tg-teich-xp-n-s12-w3-${each.key}-${listen_port}"><br>
+
+                <label for="listen-port">Listen Port:</label>
+                <input type="number" id="listen-port" name="listen-port" placeholder="443"><br>
+
+                <label for="target-type">Target Type:</label>
+                <input type="text" id="target-type" name="target-type" placeholder="instance"><br>
+
+                <label for="deregistration-delay">Deregistration Delay:</label>
+                <input type="number" id="deregistration-delay" name="deregistration-delay" placeholder="30"><br>
+
+                <label for="stickiness-type">Stickiness Type:</label>
+                <input type="text" id="stickiness-type" name="stickiness-type" placeholder="lb_cookie"><br>
+
+                <label for="stickiness-enabled">Stickiness Enabled:</label>
+                <input type="checkbox" id="stickiness-enabled" name="stickiness-enabled" checked><br>
+
+                <label for="stickiness-cookie-name">Stickiness Cookie Name:</label>
+                <input type="text" id="stickiness-cookie-name" name="stickiness-cookie-name" placeholder="null"><br>
+
+                <label for="stickiness-cookie-duration">Stickiness Cookie Duration:</label>
+                <input type="number" id="stickiness-cookie-duration" name="stickiness-cookie-duration" placeholder="86400"><br>
+
+                <label for="health-path">Health Check Path:</label>
+                <input type="text" id="health-path" name="health-path" placeholder="/isAlive.html"><br>
+
+                <label for="health-port">Health Check Port:</label>
+                <input type="text" id="health-port" name="health-port" placeholder="traffic-port"><br>
+
+                <label for="health-protocol">Health Check Protocol:</label>
+                <input type="text" id="health-protocol" name="health-protocol" placeholder="HTTPS"><br>
+
+                <label for="unhealthy-threshold">Unhealthy Threshold:</label>
+                <input type="number" id="unhealthy-threshold" name="unhealthy-threshold" placeholder="3"><br>
+
+                <label for="healthy-threshold">Healthy Threshold:</label>
+                <input type="number" id="healthy-threshold" name="healthy-threshold" placeholder="5"><br>
+
+                <label for="health-interval">Health Check Interval:</label>
+                <input type="number" id="health-interval" name="health-interval" placeholder="10"><br>
+
+                <label for="health-timeout">Health Check Timeout:</label>
+                <input type="number" id="health-timeout" name="health-timeout" placeholder="5"><br>
+
+                <label for="certificate-arn">Certificate ARN:</label>
+                <input type="text" id="certificate-arn" name="certificate-arn" placeholder="data.aws_acm_certificate.certificates[each.key].arn"><br>
+
+                <label for="priority">Priority:</label>
+                <input type="text" id="priority" name="priority" placeholder="null"><br>
+
+                <label for="tags">Tags:</label>
+                <input type="text" id="tags" name="tags" placeholder="{}"><br>
+
+                <label for="tags-all">Tags All:</label>
+                <input type="text" id="tags-all" name="tags-all" placeholder="{}"><br>
+
+                <label for="stickiness-duration">Stickiness Duration:</label>
+                <input type="number" id="stickiness-duration" name="stickiness-duration" placeholder="3600"><br>
+
+                <label for="stickiness-enabled2">Stickiness Enabled (Additional):</label>
+                <input type="checkbox" id="stickiness-enabled2" name="stickiness-enabled2"><br>
+
+                <label for="dns-record-type">DNS Record Type:</label>
+                <input type="text" id="dns-record-type" name="dns-record-type" placeholder="A"><br>
+
+                <label for="dns-record-ttl">DNS Record TTL:</label>
+                <input type="number" id="dns-record-ttl" name="dns-record-ttl" placeholder="300"><br>
+
+                <label for="port">Port:</label>
+                <input type="number" id="port" name="port" placeholder="443"><br>
+            </div>
+
+            <input type="button" value="Generate JSON" onclick="generateJsonFromForm()">
+        </form>
+    </div>
+    <div id="json-output" style="display: none;">
+        <h2>Generated JSON</h2>
+        <pre id="json-pre"></pre>
+        <button onclick="saveGeneratedJson()">Save JSON</button>
+    </div>
+
+    <script src="form.js"></script>
+</body>
+</html>

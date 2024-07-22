@@ -1,0 +1,189 @@
+/* Existing styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f0f2f5;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+nav {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+nav a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #007bff;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+#upload-form {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#file-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+#upload-form input[type="button"] {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#upload-form input[type="button"]:hover {
+    background-color: #0056b3;
+}
+
+#output {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.json-container {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    background-color: #fff;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.json-container pre {
+    margin: 0;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    overflow-x: auto;
+}
+
+.json-container button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #28a745;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.json-container button:hover {
+    background-color: #218838;
+}
+
+.save-all-button {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.save-all-button button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #17a2b8;
+    color: #fff;
+    cursor: pointer;
+}
+
+.save-all-button button:hover {
+    background-color: #138496;
+}
+
+/* Styles for the form page */
+#form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#json-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#json-form label {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#json-form input[type="text"],
+#json-form input[type="number"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+#json-form input[type="checkbox"] {
+    margin-top: 10px;
+}
+
+#json-form input[type="button"] {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+#json-form input[type="button"]:hover {
+    background-color: #0056b3;
+}
+
+#json-output {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#json-output pre {
+    margin: 0;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    overflow-x: auto;
+}
+
+#json-output button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #28a745;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#json-output button:hover {
+    background-color: #218838;
+}
