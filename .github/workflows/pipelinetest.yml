@@ -1,0 +1,89 @@
+name: Simulated-Terraform-Apply
+on:
+  workflow_dispatch:
+
+jobs:
+  create_certificate:
+    runs-on: ubuntu-latest
+    continue-on-error: true  # Continue even if this job fails
+    steps:
+    - name: Simulate Certificate Deployment
+      id: certificate_workflow
+      uses: actions/checkout@v2
+
+      
+
+    - name: Capture Certificate Workflow Result
+      if: always()
+      id: capture_certificate_result
+      run: |
+        if [ "${{ steps.certificate_workflow.outcome }}" != "success" ]; then
+            echo "Certificate deployment workflow failed : ${{ steps.certificate_workflow.conclusion }}"
+            echo "certificate_error_log=Failed with outcome: ${{ steps.certificate_workflow.outcome }}" >> "$GITHUB_OUTPUT"
+        else
+            echo "certificate_error_log=${{steps.certificate_workflow.conclusion}}" >> "$GITHUB_OUTPUT"
+        fi
+    outputs:
+        certificate_error_log: ${{ steps.capture_certificate_result.outputs.certificate_error_log }}
+
+  create_alb:
+    runs-on: ubuntu-latest
+    needs: create_certificate
+    continue-on-error: true  # Continue even if this job fails
+    steps:
+    - name: Simulate ALB Deployment
+      id: alb_workflow
+      run: |
+        echo "Simulating ALB deployment..."
+        echo "Certificate Error Log: ${{ needs.create_certificate.outputs.certificate_error_log }}"
+        # Simulate a success by returning a zero exit code
+        exit 0  # Change to 1 to simulate failure
+
+    - name: Capture ALB Workflow Result
+      if: always()
+      id: capture_alb_result
+      run: |
+        if [ "${{ steps.alb_workflow.outcome }}" != "success" ]; then
+            echo "ALB deployment workflow failed."
+            echo "alb_error_log=Failed" >> "$GITHUB_OUTPUT"
+        else
+            echo "alb_error_log=${{steps.alb_workflow.conclusion}}" >> "$GITHUB_OUTPUT"
+        fi
+    outputs:
+        alb_error_log: ${{ steps.capture_alb_result.outputs.alb_error_log }}
+
+  snow_callback:
+    runs-on: ubuntu-latest
+    needs: [create_certificate, create_alb]
+    if: always()
+    steps:
+
+    - name: Fake Callback to ServiceNow
+      run: |
+        # Access the outputs from the previous jobs
+        cert_status="${{ needs.create_certificate.outputs.certificate_error_log }}"
+        alb_status="${{ needs.create_alb.outputs.alb_error_log }}"
+        errors_summary="$cert_status $alb_status"
+        echo "Certificate status: $cert_status"
+        echo "ALB status: $alb_status"
+
+        if [[ "$cert_status" != "success" || "$alb_status" != "success" ]]; then
+          echo "Something went wrong. Sending error message to ServiceNow..."
+          state="4"  # Simulating an error state
+          message="Pipeline failed: Certificate status = $cert_status, ALB status = $alb_status. Errors: $errors_summary"
+        else
+          state="3"  # Simulating a success state
+          message="Pipeline succeeded. No errors encountered."
+        fi
+
+        # Simulating a callback with curl
+        echo "Simulating ServiceNow callback with state $state and message: $message"
+        
+        # Simulate an API response (200 for success, anything else for failure)
+        response=200  # Change this to a non-200 value to simulate a failure
+        if [[ "$response" -ne 200 ]]; then
+          echo "Simulated callback failed with status code $response"
+          exit 1
+        else
+          echo "Simulated callback succeeded with status code $response"
+        fi
